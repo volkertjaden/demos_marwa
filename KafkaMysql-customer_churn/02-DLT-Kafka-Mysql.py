@@ -32,6 +32,15 @@
 # MAGIC 
 # MAGIC * Check the notebook *03-Data-quality-on-DLT*: We compute statistics on the pipeline to monitor data quality using DB sql
 # MAGIC * Check the notebook *04-ML_customer_segmentation*: We prepare an ML model using MLflow for customer segmentation/churn. 
+# MAGIC * Check the DLT pipeline <a href="https://e2-demo-west.cloud.databricks.com/?o=2556758628403379#joblist/pipelines/839d4d47-af97-43e7-a1ff-7f8141a82008" target="_top">Link</a>
+# MAGIC 
+# MAGIC 
+# MAGIC ![alt text](https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/END%20to%20END%20usecase%20overview.png?raw=true)
+# MAGIC 
+# MAGIC 
+# MAGIC 
+# MAGIC 
+# MAGIC 
 # MAGIC 
 # MAGIC  
 
@@ -166,3 +175,31 @@ def get_male_enriched_data():
   table_properties={"delta.autoOptimize.optimizeWrite" : "true", "delta.autoOptimize.optimizeWrite" : "true"})
 def get_female_enriched_data():
   return dlt.read_stream("user_profile_and_behavior").where(F.col("gender")=="Female")
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC # How to create and configure this pipeline
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC <div style="float:right; margin: -10px 50px 0px 50px">
+# MAGIC   <img src="https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/DLT%20pipeline/step1.png?raw=true" width="90%" length="90%"/><br/>
+# MAGIC </div>
+# MAGIC <div style="float:right; margin: -10px 50px 0px 50px">
+# MAGIC   <img src="https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/DLT%20pipeline/step2.png?raw=true" width="90%" length="90%"/><br/>
+# MAGIC </div>
+# MAGIC <div style="float:right; margin: -10px 50px 0px 50px">
+# MAGIC   <img src="https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/DLT%20pipeline/step3a.png?raw=true" width="80%" length="80%"/><br/>
+# MAGIC </div>
+# MAGIC <div style="float:right; margin: -10px 50px 0px 50px">
+# MAGIC   <img src="https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/DLT%20pipeline/step3b.png?raw=true" width="80%" length="80%"/><br/>
+# MAGIC </div>
+# MAGIC <div style="float:right; margin: -10px 50px 0px 50px">
+# MAGIC   <img src="https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/DLT%20pipeline/step3c.png?raw=true" width="80%" length="80%"/><br/>
+# MAGIC </div>
+
+# COMMAND ----------
+
+

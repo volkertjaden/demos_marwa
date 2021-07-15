@@ -13,10 +13,7 @@
 // MAGIC written 4/20/21
 // MAGIC 
 // MAGIC 
-// MAGIC <div style="float:right; margin: -10px 50px 0px 50px">
-// MAGIC   <img src="https://drive.google.com/a/databricks.com/thumbnail?id=1qEpOIYw7JgZbkiOZLIgZh5oNnyrQ_uIe" width="600" height="600"/><br/>
-// MAGIC   *DLT Type of expectations*
-// MAGIC </div>
+// MAGIC ![alt text](https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/DLT%20expectations%20types.png?raw=true)
 
 // COMMAND ----------
 
@@ -256,6 +253,12 @@ FROM(
 
 // MAGIC %sql
 // MAGIC select * from KafkaMysql_pipeline.kafkamysql_data_quality_kafka  order by datetime desc
+
+// COMMAND ----------
+
+// MAGIC %md 
+// MAGIC # Create the Data Quality dashboard
+// MAGIC Check the DLT pipeline <a href="https://e2-demo-west.cloud.databricks.com/sql/dashboards/da72bf1f-ab59-4989-9f6f-552adf015284-data-quality-dlt-stats?o=2556758628403379" target="_top">Link</a>
 
 // COMMAND ----------
 
