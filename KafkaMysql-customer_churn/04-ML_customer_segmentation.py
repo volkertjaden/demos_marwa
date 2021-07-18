@@ -169,13 +169,13 @@ spark.udf.register("get_cluster", get_cluster_udf)
 # COMMAND ----------
 
 import mlflow
-model = mlflow.pyfunc.load_model("models:/customer_segmentation_vivatech_demo/production")
+model = mlflow.pyfunc.load_model("models:/customer_segmentation_marwa/production")
 
 # COMMAND ----------
 
 # DBTITLE 1,Let's get back our classes from the model artefacts
 #get back our model from registry
-model = mlflow.pyfunc.load_model("models:/customer_segmentation_vivatech_demo/production")
+model = mlflow.pyfunc.load_model("models:/customer_segmentation_marwa/production")
 
 #get the artifact clusters_class.json
 client = MlflowClient()
@@ -188,7 +188,7 @@ with open(client.download_artifacts(model.metadata.run_id, "clusters_class.json"
 @pandas_udf("string")
 def predict_category_udf(batch_iter: Iterator[Tuple[pd.Series, pd.Series, pd.Series]]) -> Iterator[pd.Series]:
   #Load the model in each executor, only once
-  model = mlflow.pyfunc.load_model("models:/customer_segmentation_vivatech_demo/production")
+  model = mlflow.pyfunc.load_model("models:/customer_segmentation_marwa/production")
   #For each batch, apply transformation
   for age, annual_income, spending_core in batch_iter:
     df = pd.DataFrame({ 'age': age, 'annual_income': annual_income, 'spending_core': spending_core } )
@@ -204,11 +204,16 @@ df.write.mode("overwrite").saveAsTable("marwa_db.user_profile_and_behavior_resul
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC select distinct(segment) from marwa_db.user_profile_and_behavior_results
+
+# COMMAND ----------
+
 # MAGIC %md #### Or using pure python and pandas direcly in a single node for smaller dataset:
 
 # COMMAND ----------
 
-model = mlflow.pyfunc.load_model("models:/customer_segmentation_vivatech_demo/production")
+model = mlflow.pyfunc.load_model("models:/customer_segmentation_marwa/production")
 df = spark.sql("select age, annual_income, spending_core from marwa_db.user_profile_and_behavior limit 10").toPandas()
 df['cluster'] = model.predict(df)
 df['cluster_name'] = df['cluster'].apply(lambda x: cluster_classes_name['cluster_'+str(x+1)])

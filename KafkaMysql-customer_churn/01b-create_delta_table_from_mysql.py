@@ -13,15 +13,14 @@
 # DBTITLE 1,Change the code in this cell to consume data from your Mysql Database. In this example I am reading data directly from s3
 #We are reading data from s3 
 # df is a spark dataframe 
-df = spark.read.csv("/mnt/quentin-demo-resources/retail/clients/raw_cdc")
+df = spark.read.csv("dbfs:/FileStore/user_info.csv")
 
 # example to read from mysql db 
-'''
+
 # df is a spark dataframe 
-df = spark.read.format("jdbc").option("url", "jdbc:mysql://localhost:3306/user_db") \
-    .option("driver", "com.mysql.jdbc.Driver").option("dbtable", "user_info") \
-    .option("user", "me").option("password", "me").load()
-'''
+#df = spark.read.format("jdbc").option("url", "jdbc:mysql://localhost:3306/user_db") \
+#    .option("driver", "com.mysql.jdbc.Driver").option("dbtable", "user_info") \
+#   .option("user", "me").option("password", "me").load()
 
 
 # COMMAND ----------
@@ -59,8 +58,13 @@ spark.sql("CREATE TABLE Mysqldb.user_info USING DELTA LOCATION '{}/'".format(pat
 # MAGIC -- 3- Increase the performance on your table immediately after each save. 
 # MAGIC -- Do optimize and zorder on the delta table 
 # MAGIC -- Zorder on the column that you will use most in your filtering operations
-# MAGIC OPTIMIZE default.user_info
+# MAGIC OPTIMIZE Mysqldb.user_info
 # MAGIC ZORDER BY (_c4)
+
+# COMMAND ----------
+
+# MAGIC %sql 
+# MAGIC select count(*) from Mysqldb.user_info
 
 # COMMAND ----------
 

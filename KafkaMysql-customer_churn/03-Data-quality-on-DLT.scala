@@ -18,15 +18,15 @@
 // COMMAND ----------
 
 // DBTITLE 1,Setup paths
-val storage_path =   "dbfs:/pipelines/839d4d47-af97-43e7-a1ff-7f8141a82008" //modify this path to your Live Tables pipeline path
+val storage_path =   "dbfs:/pipelines/4babfa87-6fdb-40d9-bee5-2b200bb544fb" //modify this path to your Live Tables pipeline path
 
 val event_log_path = storage_path + "/system/events"
 
 // COMMAND ----------
 
 // DBTITLE 1,Register the Event Log table
- spark.sql("CREATE DATABASE IF NOT EXISTS KafkaMysql_pipeline")
- spark.sql("drop table KafkaMysql_pipeline.event_log_raw ")
+ spark.sql("CREATE DATABASE IF NOT EXISTS KafkaMysql_pipeline") 
+ spark.sql("drop table IF EXISTS KafkaMysql_pipeline.event_log_raw ")
 
  spark.sql(s"""
 CREATE TABLE IF NOT EXISTS KafkaMysql_pipeline.event_log_raw
@@ -34,14 +34,6 @@ USING delta
 LOCATION '$event_log_path'
 """) 
 
-
-// COMMAND ----------
-
-display(dbutils.fs.ls("dbfs:/pipelines/839d4d47-af97-43e7-a1ff-7f8141a82008"))
-
-// COMMAND ----------
-
-display(dbutils.fs.ls("dbfs:/pipelines/839d4d47-af97-43e7-a1ff-7f8141a82008/system/events"))
 
 // COMMAND ----------
 
@@ -67,7 +59,7 @@ parsed_event_log.createOrReplaceTempView("event_log")
 
 // COMMAND ----------
 
- spark.sql("drop table KafkaMysql_pipeline.event_log ")
+ spark.sql("drop table if exists KafkaMysql_pipeline.event_log ")
 
 parsed_event_log.write.format("delta").option("optimizeWrite", "true").saveAsTable("KafkaMysql_pipeline.event_log")
 
