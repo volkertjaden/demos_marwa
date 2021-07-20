@@ -69,7 +69,7 @@ from pyspark.sql.functions import lit,unix_timestamp
 import datetime
 import time
 #timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-input_path = "/mnt/quentin-demo-resources/retail/test.csv"
+input_path = "/mnt/marwa-resources/retail/segmentation/csv"
 input_schema = spark.read.csv(input_path).schema
 input_schema
 
@@ -87,7 +87,7 @@ def deserialize_kafka_events():
 # DBTITLE 1,Incremental / 03_silver_table_cleaned_events: Apply expectations on different events' fields 
 #Cleaning data and setting expectations on the fields for data quality 
 #Use the expect operator when you want to keep records that violate the expectation. Records that violate the expectation are added to the target dataset along with valid records. The number of records that violate the expectation can be viewed in data quality metrics for the target dataset:
-@dlt.expect("timestamp is not valid", "datetime>'2021-07-18T23:27:45.755+0000'")
+@dlt.expect("timestamp is not valid", "datetime>'2021-07-15T15:27:45.755+0000'")
 #When invalid records are unacceptable, use the expect or fail operator to halt execution immediately when a record fails validation. If the operation is a table update, the system atomically rolls back the transaction: This will make your update of the pipeline failing if you have null Ids in your kafka events
 @dlt.expect_or_drop("id is not valid ", "id IS NOT NULL")  
 @dlt.expect_or_drop("age is not valid", "age>20") 
@@ -199,12 +199,6 @@ def get_female_enriched_data():
 # MAGIC <div style="float:right; margin: -10px 50px 0px 50px">
 # MAGIC   <img src="https://github.com/mkrouma93/demos_marwa/blob/962e4630291af858a6e802729c5f1f7498a9343b/KafkaMysql-customer_churn/ressources/images/DLT%20pipeline/step3c.png?raw=true" width="80%" length="80%"/><br/>
 # MAGIC </div>
-
-# COMMAND ----------
-
-# MAGIC %md 
-# MAGIC https://e2-demo-field-eng.cloud.databricks.com/?o=1444828305810485#joblist/pipelines/4babfa87-6fdb-40d9-bee5-2b200bb544fb
-# MAGIC   
 
 # COMMAND ----------
 

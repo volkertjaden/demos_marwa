@@ -59,19 +59,31 @@ print( topic )
 
 # COMMAND ----------
 
-# MAGIC 
-# MAGIC %fs rm /mnt/quentin-demo-resources/retail/test.csv 
+# DBTITLE 1,Streaming dataset
+# MAGIC %fs ls /mnt/marwa-resources/retail/segmentation/csv
 
 # COMMAND ----------
 
-# MAGIC %fs cp dbfs:/FileStore/test.csv /mnt/quentin-demo-resources/retail/test.csv
+# MAGIC %fs rm /mnt/marwa-resources/retail/segmentation/csv/test.csv
+
+# COMMAND ----------
+
+# MAGIC %fs cp /mnt/marwa-resources/retail/segmentation/csv/part-00000-tid-4047600692988634352-c5d2a109-c614-4004-8d86-5a01902cf63d-31799-1-c000.csv /mnt/marwa-resources/retail/segmentation/csv/test.csv
+
+# COMMAND ----------
+
+# MAGIC %fs rm /mnt/marwa-resources/retail/segmentation/csv/test.csv 
+
+# COMMAND ----------
+
+# MAGIC %fs cp dbfs:/FileStore/test.csv /mnt/marwa-resources/retail/segmentation/csv/test.csv
 
 # COMMAND ----------
 
 ## Clear checkpoint location
 dbutils.fs.rm(checkpoint_location, True)
 from pyspark.sql import functions as F
-input_path = "/mnt/quentin-demo-resources/retail"
+input_path = "/mnt/marwa-demo-resources/retail/segmentation/csv"
 input_schema = spark.read.csv(input_path).schema
 
 (spark.readStream

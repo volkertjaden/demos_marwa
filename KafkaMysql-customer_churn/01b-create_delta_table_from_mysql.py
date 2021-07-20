@@ -13,14 +13,15 @@
 # DBTITLE 1,Change the code in this cell to consume data from your Mysql Database. In this example I am reading data directly from s3
 #We are reading data from s3 
 # df is a spark dataframe 
-df = spark.read.csv("dbfs:/FileStore/user_info.csv")
+df = spark.read.csv("/mnt/marwa-resources/retail/clients/raw_cdc")
 
 # example to read from mysql db 
 
 # df is a spark dataframe 
 #df = spark.read.format("jdbc").option("url", "jdbc:mysql://localhost:3306/user_db") \
 #    .option("driver", "com.mysql.jdbc.Driver").option("dbtable", "user_info") \
-#   .option("user", "me").option("password", "me").load()
+#    .option("user", "me").option("password", "me").load()
+
 
 
 # COMMAND ----------
@@ -60,11 +61,6 @@ spark.sql("CREATE TABLE Mysqldb.user_info USING DELTA LOCATION '{}/'".format(pat
 # MAGIC -- Zorder on the column that you will use most in your filtering operations
 # MAGIC OPTIMIZE Mysqldb.user_info
 # MAGIC ZORDER BY (_c4)
-
-# COMMAND ----------
-
-# MAGIC %sql 
-# MAGIC select count(*) from Mysqldb.user_info
 
 # COMMAND ----------
 

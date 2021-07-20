@@ -18,9 +18,13 @@
 // COMMAND ----------
 
 // DBTITLE 1,Setup paths
-val storage_path =   "dbfs:/pipelines/4babfa87-6fdb-40d9-bee5-2b200bb544fb" //modify this path to your Live Tables pipeline path
+val storage_path =   "dbfs:/pipelines/8706cb99-6593-437e-a92b-2dc7f2ff0bc3" //modify this path to your Live Tables pipeline path
 
 val event_log_path = storage_path + "/system/events"
+
+// COMMAND ----------
+
+
 
 // COMMAND ----------
 
@@ -250,7 +254,7 @@ FROM(
 
 // MAGIC %md 
 // MAGIC # Create the Data Quality dashboard
-// MAGIC Check the DLT pipeline <a href="https://e2-demo-west.cloud.databricks.com/sql/dashboards/da72bf1f-ab59-4989-9f6f-552adf015284-data-quality-dlt-stats?o=2556758628403379" target="_top">Link</a>
+// MAGIC Check the DLT pipeline <a href="https://e2-demo-field-eng.cloud.databricks.com/?o=1444828305810485#joblist/pipelines/8706cb99-6593-437e-a92b-2dc7f2ff0bc3" target="_top">Link</a>
 
 // COMMAND ----------
 
